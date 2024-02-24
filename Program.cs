@@ -2,12 +2,13 @@
 using System;
 using System.IO;
 using System.Net.Http;
+using YMA.WebInterfacing.WebTypes;
 
 namespace YMA.WebInterfacing
 {
 	class requests
 	{
-		public static string HttpGet(string URI, string userAgent = "Mozilla/4.0 YMADotnetClient 1.4", Tuple<HttpRequestHeader, string?>[] headers = null)
+		public static IWebType HttpGet(string URI, string userAgent = "Mozilla/4.0 YMADotnetClient 1.4", Tuple<HttpRequestHeader, string?>[] headers = null)
 		{
 			WebClient client = new WebClient();
 
@@ -29,7 +30,7 @@ namespace YMA.WebInterfacing
 			return s;
 		}
 
-		public static string HttpPost(string url, Dictionary<string, string> postParams)
+		public static IWebType HttpPost(string url, Dictionary<string, string> postParams)
 		{
 			var content = new FormUrlEncodedContent(postParams);
   			var response = await client.PostAsync("http://www.example.com/recepticle.aspx", content);
@@ -37,7 +38,7 @@ namespace YMA.WebInterfacing
 			return responseString;
 		}
 
-		public static string HttpsGet(string url)
+		public static IWebType HttpsGet(string url)
 		{
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
